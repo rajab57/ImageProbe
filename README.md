@@ -1,6 +1,6 @@
 # ImageProbe (Grid Iamge Search)
 
-****Extend the Google Image Search that we built in class to allow a user to modify advanced search options and result pagination.***
+** Extend the Google Image Search that we built in class to allow a user to modify advanced search options and result pagination. **
 
 Total Hours = 20+ hours spent in total
 ### Features
@@ -27,4 +27,12 @@ Total Hours = 20+ hours spent in total
 
 
 ![Video Walkthrough](assets/ImageProbe.gif)
+
+### Libraries and Dependencies 
+1. android-async-http-1.4.4.jar
+2. android-smart-image-view-3-27-14.jar
+3. universal-image-loader.19.2-with-sources.jar
+4. StaggeredGridView project from https://github.com/maurycyw/StaggeredGridView
+5. Have used TouchImageView.java from https://github.com/MikeOrtiz/TouchImageView
+6. NavigationDrawer from codepath
 
