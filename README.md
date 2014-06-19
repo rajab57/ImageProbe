@@ -1,8 +1,8 @@
 # ImageProbe (Grid Iamge Search)
 
-** Extend the Google Image Search that we built in class to allow a user to modify advanced search options and result pagination. **
+**Extend the Google Image Search that we built in class to allow a user to modify advanced search options and result pagination.**
 
-Total Hours = 20+ hours spent in total
+Total Hours = 10+ hours spent in total
 ### Features
 1. [x] User can enter a search query that will display a grid of image results from the Google Image API.2. [x] User enters the total amount of the transaction
 3. [x] User can click on "settings" which allows selection of advanced search options to filter results
