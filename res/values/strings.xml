@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ImageProbe</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="title_activity_image_display">ImageDisplayActivity</string>
+    <color name="semitransparentWhite">#C0FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="actionbar_title_color">#00A49E</color>
+    <color name="black">#000000</color>
+    <dimen name="actionbar_text_size">18sp</dimen>
+    <color name="theme_color">#00A49E</color>
+    <color name="semitransaprent_theme">#4400A49E</color>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <color name="apptheme_color">#00a49e</color>
+    <color name="theme_color1">#5FBD47</color>
+    <color name="nav_text">#FFFFFF</color>
+    
+
+</resources>
