@@ -32,6 +32,17 @@ public class FilterDialogFragment extends DialogFragment {
 	Spinner typeSpinner;
 	Spinner sizeSpinner;
 	
+	 /** Declaring the interface, to invoke a callback function in the implementing activity class */
+    AlertPositiveListener mAlertPositiveListener;
+ 
+    /** An interface to be implemented in the hosting activity for "OK" button click listener */
+    interface AlertPositiveListener {
+        public void onPositiveClick();
+    }
+    
+    
+ 
+	
 	public FilterDialogFragment(Filters searchFilterSettings) {
 		this.searchFilters = searchFilterSettings;	
 	}
@@ -60,6 +71,7 @@ public class FilterDialogFragment extends DialogFragment {
 //		typeSpinner.setOnItemSelectedListener(this);
 //		sizeSpinner.setOnItemSelectedListener(this);
 		
+		mAlertPositiveListener = (AlertPositiveListener) getActivity();
 		
 		colorSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
@@ -119,7 +131,7 @@ public class FilterDialogFragment extends DialogFragment {
 				searchFilters.setImgSize(selSize);
 				searchFilters.setImgType(selType);
 				searchFilters.setSiteToSearch(siteName);
-				
+				mAlertPositiveListener.onPositiveClick();
 				dismiss();
 			}
 		});

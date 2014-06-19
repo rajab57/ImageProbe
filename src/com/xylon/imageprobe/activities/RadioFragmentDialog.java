@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.xylon.imageprobe.R;
@@ -44,8 +46,12 @@ public class RadioFragmentDialog extends DialogFragment {
 		if (array.length > 10) {
 			// Create 2 radio groups
 			createTwoRadioGroups(layout);
-		} else
+			loadPreferencesFromFile(radioGroup,title);
+			loadPreferencesFromFile(radioGroup2,title);
+		} else {
 			createOneRadioGroup(layout);
+			loadPreferencesFromFile(radioGroup,title);
+		}
 
 		saveButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -150,6 +156,18 @@ public class RadioFragmentDialog extends DialogFragment {
 		radioGroup.setOnCheckedChangeListener(listener1);
 		radioGroup2.setOnCheckedChangeListener(listener2);
 
+	}
+	
+	// initial values on the dialog
+	private void loadPreferencesFromFile(RadioGroup rg, String key) {
+		String prevSelValue = SharedPreferencesUtils.LoadPreferences(getActivity(), key);
+		for (int i = 0; i < rg.getChildCount(); i++) {
+			RadioButton rd = ((RadioButton) rg.getChildAt(i));
+			String rdVal  = rd.getText().toString();
+			if (rdVal.equals(prevSelValue)) {
+				radioGroup.check(rd.getId());
+			}
+		}
 	}
 
 	private OnCheckedChangeListener listener1 = new OnCheckedChangeListener() {
