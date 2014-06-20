@@ -30,7 +30,6 @@ public class RadioFragmentDialog extends DialogFragment {
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		System.out.println("dddd");
 		super.onCreate(savedInstanceState);
 		int arryId = getArguments().getInt("array");
 		title = getArguments().getString("title");
@@ -73,7 +72,6 @@ public class RadioFragmentDialog extends DialogFragment {
 					selectedId = chkId1;
 					if (selectedId != -1) {
 						// find the radiobutton by returned id
-						System.out.println(selectedId);
 						rb = (RadioButton) radioGroup
 								.findViewById(selectedId);
 					}
@@ -87,15 +85,16 @@ public class RadioFragmentDialog extends DialogFragment {
 				}
 
 				// update filter object for next search
-				
-				if ( title.equals("color"))
-				 searchFilters.setImgColor(selValue);
-				else if ( title.equals("size"))
-				 searchFilters.setImgSize(selValue);
-				else if ( title.equals("type"))
-				 searchFilters.setImgType(selValue);
-				else if (title.equals("site"))
-				 searchFilters.setSiteToSearch(selValue);
+				if (selValue != null && !selValue.equals("")) {
+					if (title.equals("color"))
+						searchFilters.setImgColor(selValue);
+					else if (title.equals("size"))
+						searchFilters.setImgSize(selValue);
+					else if (title.equals("type"))
+						searchFilters.setImgType(selValue);
+					else if (title.equals("site"))
+						searchFilters.setSiteToSearch(selValue);
+				}
 
 				dismiss();
 			}
@@ -117,10 +116,8 @@ public class RadioFragmentDialog extends DialogFragment {
 				LinearLayout.LayoutParams.FILL_PARENT,
 				LinearLayout.LayoutParams.WRAP_CONTENT);
 		layout.addView(radioGroup, p);
-		System.out.println("here");
 		int count = 0;
 		for (String item : array) {
-			System.out.println("item=" + item);
 			RadioButton radioButtonView = new RadioButton(getActivity());
 			radioButtonView.setId(count++);
 			radioButtonView.setText(item);
@@ -130,7 +127,6 @@ public class RadioFragmentDialog extends DialogFragment {
 	}
 
 	private void createTwoRadioGroups(LinearLayout layout) {
-		System.out.println("creating 2 radio groups");
 		radioGroup = new RadioGroup(getActivity());
 		radioGroup2 = new RadioGroup(getActivity());
 
@@ -139,10 +135,8 @@ public class RadioFragmentDialog extends DialogFragment {
 				LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
 		layout.addView(radioGroup, p);
 		layout.addView(radioGroup2, p);
-		System.out.println("here");
 		int count = 0;
 		for (String item : array) {
-			System.out.println("item=" + item);
 			RadioButton radioButtonView = new RadioButton(getActivity());
 			radioButtonView.setId(count);
 			radioButtonView.setText(item);

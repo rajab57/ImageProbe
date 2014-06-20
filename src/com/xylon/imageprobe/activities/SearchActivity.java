@@ -64,6 +64,7 @@ public class SearchActivity extends FragmentActivity implements
 		bundle3.putInt("array", R.array.type);
 		bundle3.putString("title", "type");
 		bundle3.putString("navTitle", "Type Filter");
+		bundle3.putSerializable("filters", searchFilterSettings);
 		dlDrawer.addNavItem("Type Filter", "Third Fragment",
 				RadioFragmentDialog.class, bundle3);
 		Bundle bundle4 = new Bundle();
@@ -71,7 +72,7 @@ public class SearchActivity extends FragmentActivity implements
 		bundle4.putString("title", "site");
 		bundle4.putString("navTitle", "Site Filter");
 		dlDrawer.addNavItem("Site Filter", "Fourth Fragment",
-				RadioFragmentDialog.class, bundle4);
+				EditTextFragmentDialog.class, bundle4);
 
 		// // Select default
 		// if (savedInstanceState == null) {
