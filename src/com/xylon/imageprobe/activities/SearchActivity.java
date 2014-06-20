@@ -46,39 +46,28 @@ public class SearchActivity extends FragmentActivity implements
 				(ListView) findViewById(R.id.lvDrawer),
 				R.layout.drawer_nav_item, R.id.content_frame);
 		// Add nav items
-		Bundle bundle1 = new Bundle();
-		bundle1.putInt("array", R.array.size);
-		bundle1.putString("title", "size");
-		bundle1.putSerializable("filters", searchFilterSettings);
-		bundle1.putString("navTitle", "Size Filter");
-		dlDrawer.addNavItem("Size Filter", "First Fragment",
-				RadioFragmentDialog.class, bundle1);
-		Bundle bundle2 = new Bundle();
-		bundle2.putInt("array", R.array.colorfilter);
-		bundle2.putString("title", "color");
-		bundle2.putSerializable("filters", searchFilterSettings);
-		bundle2.putString("navTitle", "Color Filter");
-		dlDrawer.addNavItem("Color Filter", "Second Fragment",
-				RadioFragmentDialog.class, bundle2);
-		Bundle bundle3 = new Bundle();
-		bundle3.putInt("array", R.array.type);
-		bundle3.putString("title", "type");
-		bundle3.putString("navTitle", "Type Filter");
-		bundle3.putSerializable("filters", searchFilterSettings);
-		dlDrawer.addNavItem("Type Filter", "Third Fragment",
-				RadioFragmentDialog.class, bundle3);
-		Bundle bundle4 = new Bundle();
-		bundle4.putInt("size", R.array.size);
-		bundle4.putString("title", "site");
-		bundle4.putString("navTitle", "Site Filter");
-		dlDrawer.addNavItem("Site Filter", "Fourth Fragment",
-				EditTextFragmentDialog.class, bundle4);
+		createRadioFilter(R.array.size,        "size" , "Size Filter" , searchFilterSettings );
+		createRadioFilter(R.array.colorfilter, "color", "Color Filter" , searchFilterSettings );
+		createRadioFilter(R.array.type,        "type" , "Type Filter" , searchFilterSettings );
+		createEditTextFilter("site" , "Site Filter", searchFilterSettings);
 
-		// // Select default
-		// if (savedInstanceState == null) {
-		// dlDrawer.selectDrawerItem(0);
-		// }
-
+	}
+	
+	private void createRadioFilter(int arrayId, String titleName, String navName, Filters filter ) {
+		Bundle bundle = new Bundle();
+		bundle.putInt("array", arrayId);
+		bundle.putString("title", titleName);
+		bundle.putSerializable("filters", filter);
+		bundle.putString("navTitle", navName);
+		dlDrawer.addNavItem(navName,  navName,RadioFragmentDialog.class, bundle);
+		
+	}
+	
+	private void createEditTextFilter(String titleName, String navName, Filters filter) {
+		Bundle bundle = new Bundle();
+		bundle.putString("title", titleName);
+		bundle.putString("navTitle",navName);
+		dlDrawer.addNavItem("Site Filter", navName, EditTextFragmentDialog.class, bundle);		
 	}
 
 	@Override
@@ -98,7 +87,6 @@ public class SearchActivity extends FragmentActivity implements
 		System.out.println("ON RESUME called");
 		if (resultsFragment != null)
 			resultsFragment.toggleDimScreen(false);
-
 	}
 
 	// The following callbacks are called for the
@@ -111,31 +99,35 @@ public class SearchActivity extends FragmentActivity implements
 	}
 
 	public boolean onQueryTextSubmit(String queryStr) {
-		// peform query here
-		// SearchResultFragment resultsFragment = null;
-		// resultsFragment = SearchResultFragment.newInstance(this);
-		FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
-		transaction.replace(R.id.content_frame, resultsFragment);
-		transaction.addToBackStack(null);
-		// Commit the transaction
-		transaction.commit();
-		resultsFragment.toggleDimScreen(false);
-
 		this.query = queryStr;
-		resultsFragment.init(); // clear results here
-		// Check for network connectivity
-		boolean isInternetConnected = NetworkingUtils
-				.isNetworkAvailable(getApplicationContext());
-		if (isInternetConnected == false)
-			Toast.makeText(this, "Not connected to the Internet",
-					Toast.LENGTH_SHORT).show();
-		else {
-			resultsFragment.customLoadMoreDataFromApi(0);
-			Toast.makeText(this, "Searching for " + query, Toast.LENGTH_SHORT)
-					.show();
-		}
+		// perform query here
+		viewSearchResults();
 		return true;
+	}
+	
+	private void viewSearchResults() {
+		if (query != null && !query.equals("")) {
+			// open the SearchFragment to show the results of the search query
+			FragmentTransaction transaction = getSupportFragmentManager()
+					.beginTransaction();
+			transaction.replace(R.id.content_frame, resultsFragment);
+			transaction.addToBackStack(null);
+			// Commit the transaction
+			transaction.commit();
+			resultsFragment.toggleDimScreen(false);
+			resultsFragment.init(); // clear results here
+			// Check for network connectivity
+			boolean isInternetConnected = NetworkingUtils
+					.isNetworkAvailable(getApplicationContext());
+			if (isInternetConnected == false)
+				Toast.makeText(this, "Not connected to the Internet",
+						Toast.LENGTH_SHORT).show();
+			else {
+				resultsFragment.customLoadMoreDataFromApi(0);
+				Toast.makeText(this, "Searching for " + query,
+						Toast.LENGTH_SHORT).show();
+			}
+		}
 	}
 
 	// Make the search icon invisible when the drawer opens
@@ -195,29 +187,11 @@ public class SearchActivity extends FragmentActivity implements
 	}
 
 	// call back from FilterFragment Dialog
-	// TODO duplicate fix
+	// adjust the results based on the filter settings on the prev search
 	@Override
 	public void onPositiveClick() {
 		if (query != null && !query.equals("")) {
-			FragmentTransaction transaction = getSupportFragmentManager()
-					.beginTransaction();
-			transaction.replace(R.id.content_frame, resultsFragment);
-			transaction.addToBackStack(null);
-			// Commit the transaction
-			transaction.commit();
-			resultsFragment.toggleDimScreen(false);
-			resultsFragment.init(); // clear results here
-			// Check for network connectivity
-			boolean isInternetConnected = NetworkingUtils
-					.isNetworkAvailable(getApplicationContext());
-			if (isInternetConnected == false)
-				Toast.makeText(this, "Not connected to the Internet",
-						Toast.LENGTH_SHORT).show();
-			else {
-				resultsFragment.customLoadMoreDataFromApi(0);
-				Toast.makeText(this, "Searching for " + query,
-						Toast.LENGTH_SHORT).show();
-			}
+			viewSearchResults();
 
 		}
 	}
