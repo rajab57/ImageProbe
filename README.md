@@ -4,7 +4,7 @@
 
 Total Hours = 10+ hours spent in total
 ### Features
-1. [x] User can enter a search query that will display a grid of image results from the Google Image API.2. [x] User enters the total amount of the transaction
+1. [x] User can enter a search query that will display a grid of image results from the Google Image API.2. 
 3. [x] User can click on "settings" which allows selection of advanced search options to filter results
 4. [x] User can configure advanced search filters such as:
  * Size (small, medium, large, extra-large)
